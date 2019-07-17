@@ -1,44 +1,50 @@
 .. concept .
 
-.. contents:: 本章目录
+.. contents:: Chapters
   :depth: 2
 
 -----------
-概念简介
+Concepts
 -----------
 
-Nano平台目前包含三个模块：Core/Cell/FrontEnd
+A Nano platform currently consists of three modules: Core, Cell, and FrontEnd.
 
-Cell负责云主机的创建与管理；Core将多个Cell组成资源池，根据需求在池内调度和分配云主机；FrontEnd调用Core的API接口为用户提供HTML5的管理门户。
+The Cell creates and manages virtual machines. The Core forms resource pools using multiple Cells, to schedule and allocates instances on demand; FrontEnd provides an HTML5 web portal based on the API service of the Core module.
 
-所有模块可以安装在一个服务器上，作为All In One平台进行体验和测试，但是对生产环境部署时，为了保障平台可用性，建议每个模块都部署在独立服务器上，如下图所示：
+Although all modules can install on a single server, it recommends that each module deploys on a separate server for better availability on a production system. As blow figure:
+
+
 
 .. image:: images/1_1_nano_modules.png
 
-Nano平台的网络通讯分为外部和内部两部分，外部通讯目前主要是Web管理端和Core API端口，用于用户访问和应用调用；默认端口Web为TCP 5850，API为TCP 5870，用户可以根据自己环境进行调整。
+the Nano has external and internal network communications.
 
-内部通讯主要是模块间的UDP协议和数据传输用HTTPS协议，协议端口都是平台自行动态分配和管理，通常情况下，管理员无需配置。
+The external communication includes the Web portal (TCP 5850 in default) and API service of the Core module(TCP 5870 in default), which can configure on your demand.
+
+Internal communication includes the UDP packets between modules and HTTPS for data transmission. All ports are dynamically and automated allocated, no need to worry about them.
 
 .. image:: images/1_2_communicate_overview.png
 
 
-通讯域
-==========
+Communicate Domain
+===============================
 
-Nano集群的模块可以相互发现，自动完成组网和识别，无需管理员配置。
+The modules of Nano can discover each other and automatically complete networking without any configuration.
 
-Nano的自动发现基于组播协议实现，Nano通过 <通讯域名称:组播地址:组播端口> 的三元组定义一个独立的通讯域（默认为<"Nano":224.0.0.226:5599>），同一通讯域内模块可以相互发现、识别和通讯。
+The automatic discovery is implemented base on the multicast protocol. A communicate domain defined by a triple consist of a domain name, multicast address, and port (the default is < "Nano": 224.0.0.226:5599 >). Modules in the same domain can discover and communicate with each other.
 
-如果需要在一个局域网内配置多个Nano集群，可以通过分配不同的通讯域地址来进行区分，有效的组播地址为224.0.0.0～224.0.0.255，具体请参考 `Multicast address <https://en.wikipedia.org/wiki/Multicast_address>`_ 。
+If you need to configure multiple clusters within a LAN, you can assign different domain triples.
 
-工作原理如图：
+The valid multicast address range from "224.0.0.0" to "224.0.0.255". Refer to `Multicast address <https://en.wikipedia.org/wiki/Multicast_address>`_ for details.
+
+As follow figure:
 
 .. image:: images/1_3_domain_discovery.png
 
-**Core作为接听模块，应该最先启动。** 如果Core停止服务或者重启，已经启动的模块会自动尝试找回Core服务并重新加入通讯组。
+**the Core must start first as a stub module.** If the Core stops service or restarts, the module already started will automatically attempt to resume communication.
 
-资源模型
-==========
+Resource Model
+========================
 
 一个Nano本地集群构成一个可用域(Zone)，一个域包含多个资源池(Pool)，每个资源池包含一个或者多个Cell资源节点。
 
@@ -48,8 +54,8 @@ Nano的自动发现基于组播协议实现，Nano通过 <通讯域名称:组播
 
 Nano平台搭建完成后，会有一个空的Default资源池，在尝试创建云主机之前，请记得 **首先往资源池中添加一个可用的Cell节点** 。
 
-镜像
-========
+Images
+==========
 
 为了便于云主机部署和维护，Nano提供了两种镜像：磁盘镜像和光盘镜像。
 

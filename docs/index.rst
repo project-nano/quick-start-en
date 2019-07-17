@@ -5,14 +5,14 @@ Nano Quick Guide
 ======================
 
 Notes
-======
+=================
 
 This manual provides an overview of the basic concepts about the Nano platform, also demonstrates the main features in version 1.0.
 
-Welcome to the official website https://nanos.cloud/ for more information.
+Welcome to the official website https://nanos.cloud/en-us/ for more information.
 
 Introduction
-======
+==================
 
 Nano is an IaaS (Infrastructure as a Service) software based on CentOS and KVM virtualization technology, which manages virtual machines using server clusters as resource pools.
 
@@ -45,12 +45,12 @@ Features
 
 - **Platform management** : system initialization, user/user group/role manage, resource visibility, network discovery, start and stop modules, connection/running status detection, operate log
 - **Tools** : Installer
-- **Broswer** : Chrome/Firefox
+- **Browser** : Chrome/Firefox
 - **Multilingual** : English/Chinese
 
 
 Chapters
--------
+----------------
 
 .. toctree::
    :maxdepth: 2
