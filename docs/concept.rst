@@ -46,28 +46,23 @@ As follow figure:
 Resource Model
 ========================
 
-一个Nano本地集群构成一个可用域(Zone)，一个域包含多个资源池(Pool)，每个资源池包含一个或者多个Cell资源节点。
+A local Nano cluster forms an available zone, A zone contains multiple resource pools, each resource pool contains one or more Cell resource nodes.
 
-一个Cell只能属于一个Pool，当用户请求创建或者迁移云主机时，Core根据指定资源池内各Cell的实时负载，选择一个合适的Cell进行云主机实例创建。
+A Cell can only belong to one pool. When creating or migrating an instance, the Core chooses an appropriate Cell according to the real-time load of each Cell in the specified pool.
 
 .. image:: images/1_4_resource_model.png
 
-Nano平台搭建完成后，会有一个空的Default资源池，在尝试创建云主机之前，请记得 **首先往资源池中添加一个可用的Cell节点** 。
+There will be an empty default resource pool after system installed. **Do remember to add a Cell node to the resource pool before creating any instance.**
 
 Images
 ==========
 
-为了便于云主机部署和维护，Nano提供了两种镜像：磁盘镜像和光盘镜像。
+Nano has two kinds of images: disk image and media image.
 
-磁盘镜像保存云主机的系统盘数据，用户可以通过磁盘镜像快速复制新的云主机实例，直接获得与模板云主机相同的操作系统和预装软件，大幅度提高批量部署示例的效率。
+The disk image represents the disk data of a virtual machine,  which can be used to fast clone batch of instances with the identical OS and software as the original one in a short time.
 
-光盘镜像保存了ISO格式的光盘数据，用于加载到云主机中安装操作系统或者其他系统软件，通常用于定制模板云主机。
+The media image represents a DVD data in ISO format, which can load into instance working as a physical CD for installing OS.
 
-你可以直接将准备好的镜像上传到平台中并开始使用，节省制作模板的时间。可以访问Nano官方网站 `下载 <https://nanos.cloud/zh-cn/download.html>`_ 页面，获取预置的CentOS 7镜像。
+You can upload the pre-built image to the system to save the time of customization. Visit the official website to `Download <https://nanos.cloud/en-us/download.html>`_ the pre-built CentOS 7 image.
 
 .. image:: images/1_5_images_overview.png
-
-
-----
-
-了解了Nano的基本概念，就可以开始进行平台的部署与安装了
