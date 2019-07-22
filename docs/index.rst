@@ -11,6 +11,10 @@ This manual provides an overview of the basic concepts about the Nano platform, 
 
 Welcome to the official website https://nanos.cloud/en-us/ for more information.
 
+Author: Akumas (bokuore@github.com)
+
+Git Repository: https://github.com/project-nano
+
 Introduction
 ==================
 
@@ -55,6 +59,7 @@ Chapters
 .. toctree::
    :maxdepth: 2
 
+   index
    concept
    deployment
    instance

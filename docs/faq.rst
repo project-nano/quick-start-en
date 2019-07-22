@@ -1,75 +1,74 @@
 .. faq .
 
-.. contents:: 本章目录
+.. contents:: Chapters
   :depth: 2
 
 ---------
-常见问题
+FAQ
 ---------
 
-安装Nano有什么要求？
-=============================
+Install requirements for Nano?
+===================================
 
-- 支持虚拟化的X86服务器或者打开嵌套虚拟化的虚拟机
-- 2核4G内存50GB磁盘和一个网络设备
+- Virtualization enabled X86 servers, or nested virtualization enabled virtual machines
+- 2 cores/4 GB memory/50 GB disk/1 network interface
 - CentOS 7.6(1810) Minimal
-- 操作系统安装完成并且网络就绪
+- Operation system installed with network ready
 
-能否在虚拟机安装Nano？
-===============================
+Can Nano be installed on a virtual machine?
+==================================================
 
-理论上支持嵌套虚拟化的技术都可以使用，已测试虚拟化技术：
+All products enable nesting virtualization is possible in theoretically. Tested products:
 
-- VMware Station，可以安装，需要打开CPU的嵌套虚拟化开关
-- VMware ESXi，可以安装，需要启用网络混杂模式
-- VirtualBox，不可安装
+- VMware Station, test OK with Intell VT-x/AMD-V enabled
+- VMware ESXi, test OK with Promiscuous Mode
+- VirtualBox, test fail
 
-能否在公有云安装Nano？
-===============================
+Can Nano install on a public cloud like AWS?
+================================================
 
-不行，目前已知大部分公有云平台都不允许使用虚拟化技术
+No, most public cloud platforms do not allow virtualization.
 
-Nano安装过程中网络中断
-=============================
+Network/SSH disconnected when installing Nano
+==================================================
 
-Installer安装过程中，会构建桥接网络并且重启网络服务，对于常见的Dell系列服务器和VMware实例，该操作不会中断网络连接。
+The installer will configure network bridge and restart network service during installation, which does not affect the network connection for most Dell series servers and VMware instances.
 
-但是确实有部分服务器可能因为网络驱动原因，会导致网络中断，这种情况请使用服务器的IPMI或者类似远程管理界面进行安装，而不要使用SSH。
+However, it is true that some servers may cause network disconnection due to network drivers, which should install using the server's IPMI or similar remote administration interface instead of SSH.
 
+Prompt "no default route available" when Installer or Cell starts
+=====================================================================
 
-Installer或者Cell启动时提示"no default route available"
-===================================================================
-
-Nano所在服务器必须配置好默认路由才能正常工作，如果模块检测不到默认路由，则需要手工配置再启动服务。
-假设网络中默认网关为192.168.1.1，则在安装Nano的服务器上执行指令：
+Nano requires a default route configured to work, manually configure a new one and restarted.
+Assuming that the default gateway in the network is 192.168.1.1, execute below command.
 
 ::
 
   $ip route add default via 192.168.1.1
 
 
-Cell启动提示"query timeout"
-==========================================
+Prompt "query timeout" when starting Cell
+=============================================
 
-Cell模块启动时需要通过连接Core模块完成自我发现和组网，请检查Core模块是否启动。如果已经启动，请检查服务器网络配置和模块的通讯域配置信息是否一致
+The Cell requires a running Core process to complete self-discovery and networking. Check if the Core module and network are running correctly or the domain parameters are identical to Core's configure.
 
-升级0.9.1之后看不到原有云主机和镜像了
-===============================================
+All instances and images absent after upgrading 0.9.1
+=============================================================
 
-由于新版本只能查看自己拥有的云主机和镜像，请执行以下指令修改资源归属并重启服务，否则会无法看到自己的云主机和镜像资源。
-以当前用户为nano，用户组为admin为例
+Since the new version can only view the instances and images you created, execute the following instructions to modify the ownership of resources and restart the modules, otherwise you will not be able to see your instances and images.
+Take the user 'nano' and group 'admin' as an example:
 
 ::
 
-  更新Core模块镜像归属
+  Update ownership of images in the Core module
   $sed -i 's/\"owner\": \"admin\"/\"owner\": \"nano\"/' /opt/nano/core/data/image.data
   $sed -i 's/\"group\": \"manager\"/\"group\": \"admin\"/' /opt/nano/core/data/image.data
 
-  更新Cell模块云主机归属
+  Update ownership of instances in the Cell module
   $sed -i 's/\"user\": \"admin\"/\"user\": \"nano\"/' /opt/nano/cell/data/instance.data
   $sed -i 's/\"group\": \"manager\"/\"group\": \"admin\"/' /opt/nano/cell/data/instance.data
 
-升级之后为什么看不到日志和可见性管理菜单
-==================================================
+No "log" or "visibility" menu available after upgrading
+===========================================================
 
-旧版本升级之后，需要在角色管理中，为相应角色勾选"log"或者"visibility"菜单，用户重新登陆后即可
+Check on the "log" or "visibility" menu for the corresponding role in the permission management, and log in again.
