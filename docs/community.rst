@@ -10,7 +10,7 @@ Git Repository: https://github.com/project-nano
 
 Blueprint for REST API: https://nanoen.docs.apiary.io/
 
-This manual: https://nanocloud.readthedocs.io/projects/guide/en_US
+This manual: https://nanocloud.readthedocs.io/projects/guide/en/latest/
 
 ----
 

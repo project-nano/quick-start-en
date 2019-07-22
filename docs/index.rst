@@ -15,6 +15,8 @@ Author: Akumas (bokuore@github.com)
 
 Git Repository: https://github.com/project-nano
 
+This manual: https://nanocloud.readthedocs.io/projects/guide/en/latest/
+
 Introduction
 ==================
 
